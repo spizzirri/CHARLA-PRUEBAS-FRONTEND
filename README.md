@@ -1,6 +1,5 @@
-# Actualizar versión de Node
+# Actualizar versión de Node en Ubuntu
 
-Limpiar cache
 ```
 npm cache clean -f
 npm install -g n
