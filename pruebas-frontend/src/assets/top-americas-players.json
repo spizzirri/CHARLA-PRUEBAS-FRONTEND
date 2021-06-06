@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Caruana, Fabiano",
+        "federation": "USA",
+        "ELO": "2820",
+        "B-Year": "1992"
+    },
+    {
+        "name": "So, Wesley",
+        "federation": "USA",
+        "ELO": "2770",
+        "B-Year": "1993"
+    },
+    {
+        "name": "Dominguez Perez, Leinier",
+        "federation": "USA",
+        "ELO": "2758",
+        "B-Year": "1983"
+    },
+    {
+        "name": "Nakamura, Hikaru",
+        "federation": "USA",
+        "ELO": "2736",
+        "B-Year": "1987"
+    },
+    {
+        "name": "Xiong, Jeffery",
+        "federation": "USA",
+        "ELO": "2709",
+        "B-Year": "2000"
+    },
+    {
+        "name": "Shankland, Sam",
+        "federation": "USA",
+        "ELO": "2691",
+        "B-Year": "1991"
+    },
+    {
+        "name": "Robson, Ray",
+        "federation": "USA",
+        "ELO": "2673",
+        "B-Year": "1994"
+    },
+    {
+        "name": "Sevian, Samuel",
+        "federativon": "USA",
+        "ELO": "2660",
+        "B-Year": "2000"
+    },
+    {
+        "name": "Kamsky, Gata",
+        "federation": "USA",
+        "ELO": "2658",
+        "B-Year": "1974"
+    },
+    {
+        "name": "Cori, Jorge",
+        "federation": "Peru",
+        "ELO": "2652",
+        "B-Year": "1995"
+    }
+]

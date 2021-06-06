@@ -1,0 +1,19 @@
+.container{
+    display: grid;
+    grid-template-rows: 10% 90%;
+    grid-template-columns: 80% 20%;
+    grid-template-areas: "navigation navigation"
+                         "list       details";
+}
+
+app-navigation-panel {
+    grid-area: navigation;
+}
+
+app-details-panel {
+    grid-area: details;
+}
+
+app-players-list {
+    grid-area: list;
+}
