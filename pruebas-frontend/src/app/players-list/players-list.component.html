@@ -1,1 +1,17 @@
-<p>players-list works!</p>
+<main>
+    <table>
+        <thead>
+            <th align="left">Name</th>
+            <th align="left">Federation</th>
+            <th align="left">ELO</th>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let player of players">
+                <td>{{ player.name }}</td>
+                <td>{{ player.federation }}</td>
+                <td>{{ player.ELO }}</td>
+            </tr>
+        </tbody>
+    </table>
+</main>

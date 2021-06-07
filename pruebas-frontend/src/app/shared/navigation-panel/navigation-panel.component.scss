@@ -1,0 +1,20 @@
+nav 
+    {
+
+        background-color: darkgray;
+
+        li{
+            display:flex;
+            justify-content: flex-start;
+
+        ul a{
+            text-decoration: none;
+            color: black;
+            font-weight: 900;
+
+            &:hover{
+                color: brown;
+            }
+        }
+    }
+}
