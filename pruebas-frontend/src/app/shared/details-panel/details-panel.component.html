@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="player">
     <label for="name"> Name: <input id="name" readonly disabled type="text" [(ngModel)]="player.name"> </label>
     <label for="federation"> Federation: <input id="federation" readonly disabled type="text" [(ngModel)]="player.federation"> </label>
     <label for="byear"> BYear: <input id="byear" readonly disabled type="text" [(ngModel)]="player.Byear"> </label>

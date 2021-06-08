@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, of, throwError } from 'rxjs';
 import { Player } from 'src/app/models/player';
 
 @Injectable({
@@ -24,11 +24,10 @@ export class PlayersService {
   }
 
   getListBy(region:string):Observable<any>{
-
     if(this.regions.includes(region))
       return this.http.get(`assets/top-${region}-players.json`)
     else
-      throw new Error("Invalid Region") 
+      return throwError(new Error("Invalid Region"))
   }
 
 
