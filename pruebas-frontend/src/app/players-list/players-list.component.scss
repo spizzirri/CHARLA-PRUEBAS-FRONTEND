@@ -8,6 +8,10 @@ table {
         font-size: 1.3em;
         height: 1.5em;
 
+        &:hover{
+            background-color: antiquewhite;
+        }
+
         td{
             padding: 0.25em;
         }

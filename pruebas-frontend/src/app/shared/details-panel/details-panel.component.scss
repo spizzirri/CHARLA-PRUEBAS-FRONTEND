@@ -2,7 +2,11 @@ section{
     display: flex;
     flex-direction: column;
     gap: 1em;
-    
+
+    background-color: bisque;
+    border-radius: 3%;
+    padding: 1em;
+
     span{
         font-size: 1.5em;
     }

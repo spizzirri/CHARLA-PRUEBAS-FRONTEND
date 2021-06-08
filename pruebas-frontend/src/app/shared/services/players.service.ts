@@ -1,15 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+import { Player } from 'src/app/models/player';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayersService {
 
-  constructor(private http:HttpClient) { }
+  private regions:Array<string> = ["ame", "arg", "wrd"];
+  private subject:Subject<Player>;
 
-  private regions:Array<string> = ["ame", "arg", "wrd"]
+  constructor(private http:HttpClient) { 
+    this.subject = new Subject<Player>();
+  }
+
+  getPlayer$():Observable<Player>{
+    return this.subject.asObservable();
+  }
+
+  setPlayer(player:Player){
+    this.subject.next(player);
+  }
 
   getListBy(region:string):Observable<any>{
 
@@ -18,4 +30,6 @@ export class PlayersService {
     else
       throw new Error("Invalid Region") 
   }
+
+
 }

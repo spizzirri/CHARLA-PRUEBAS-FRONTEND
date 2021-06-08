@@ -7,7 +7,7 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let player of players">
+            <tr *ngFor="let player of players" (click)="setClickedPlayer(player)">
                 <td>{{ player.name }}</td>
                 <td>{{ player.federation }}</td>
                 <td>{{ player.ELO }}</td>

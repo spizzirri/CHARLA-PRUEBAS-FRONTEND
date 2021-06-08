@@ -24,6 +24,9 @@ export class PlayersListComponent implements OnInit, OnDestroy {
       );
   }
 
+  setClickedPlayer(player:Player){
+    this.playersService.setPlayer(player);
+  }
 
   ngOnDestroy(){
     if(!this.playersSubscription.closed)
