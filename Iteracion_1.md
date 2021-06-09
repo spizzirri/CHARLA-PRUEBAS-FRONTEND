@@ -9,3 +9,9 @@ En la iteración anterior, a medida que empezabamos a agregar mas pruebas, comen
 La sintaxis, para los que no estaban acostumbrados a este tipo de pruebas, se tornaba un poco engorrosa y necesitabamos pensar en algo para mejorar esa experiencia.
 
 ### Codigo ejemplo
+
+```js
+
+
+
+```
