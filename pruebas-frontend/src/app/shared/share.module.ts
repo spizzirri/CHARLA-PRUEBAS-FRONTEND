@@ -6,12 +6,14 @@ import { NavigationPanelComponent } from './navigation-panel/navigation-panel.co
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     DetailsPanelComponent,
     NavigationPanelComponent,
-    NotFoundComponent    
+    NotFoundComponent,
+    FilterPipe    
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   exports:[
     DetailsPanelComponent,
     NavigationPanelComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FilterPipe
   ]
 })
 export class SharedModule { }

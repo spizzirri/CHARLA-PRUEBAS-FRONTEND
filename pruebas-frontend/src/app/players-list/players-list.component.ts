@@ -14,6 +14,7 @@ export class PlayersListComponent implements OnInit, OnDestroy {
 
   private playersSubscription: Subscription = Subscription.EMPTY;
   private activatedRouteSubscription: Subscription = Subscription.EMPTY;
+  public textToFilter:string;
   public players:Array<Player>;
 
   constructor(private playersService:PlayersService,
@@ -21,6 +22,7 @@ export class PlayersListComponent implements OnInit, OnDestroy {
               private router:Router) {
 
     this.players = new Array<Player>();
+    this.textToFilter = "";
   }
 
   ngOnInit(): void {

@@ -1,4 +1,8 @@
 <main>
+    <div class="filter-container">
+        <label for="filter">Filter</label>
+        <input id="filter" type="text" placeholder="Type to search" [(ngModel)]="textToFilter">
+    </div>
     <table>
         <thead>
             <th align="left">Name</th>
@@ -7,7 +11,7 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let player of players" (click)="setClickedPlayer(player)">
+            <tr *ngFor="let player of players | filter: textToFilter" (click)="setClickedPlayer(player)">
                 <td>{{ player.name }}</td>
                 <td>{{ player.federation }}</td>
                 <td>{{ player.ELO }}</td>

@@ -1,19 +1,31 @@
-table {
-    th {
-        font-size: 2em;
-        padding: 0.25em;
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+    .filter-container{
+        display: flex;
+        font-size: 1.2em;
+        gap: 1em;
     }
 
-    tr {
-        font-size: 1.3em;
-        height: 1.5em;
-
-        &:hover{
-            background-color: antiquewhite;
-        }
-
-        td{
+    table {
+        th {
+            font-size: 2em;
             padding: 0.25em;
+        }
+    
+        tr {
+            font-size: 1.3em;
+            height: 1.5em;
+    
+            &:hover{
+                background-color: antiquewhite;
+            }
+    
+            td{
+                padding: 0.25em;
+            }
         }
     }
 }
