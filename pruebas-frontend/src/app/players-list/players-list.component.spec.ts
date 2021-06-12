@@ -4,28 +4,55 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { Player } from '../models/player';
 import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { PlayersService } from '../shared/services/players.service';
 import { SharedModule } from '../shared/share.module';
-
 import { PlayersListComponent } from './players-list.component';
 
 class PlayersServiceMock {
-  getListBy(){
-    return of([
-      {
-        "name": "Pichot, Alan",
-        "federation": "Argentina",
-        "ELO": "2630",
-        "Byear": "1998"
-      },
-      {
-        "name": "Mareco, Sandro",
-        "federation": "Argentina",
-        "ELO": "2629",
-        "Byear": "1987"
-      }
-    ])
+  getListBy(region:string){
+
+    let list:Array<Player> = [];
+
+    switch(region){
+      case "arg": 
+        list = [
+          {
+            "name": "Pichot, Alan",
+            "federation": "Argentina",
+            "ELO": "2630",
+            "Byear": "1998"
+          },
+          {
+            "name": "Mareco, Sandro",
+            "federation": "Argentina",
+            "ELO": "2629",
+            "Byear": "1987"
+          }
+        ]; break;
+
+      case "wrd":
+        list = [
+          {
+            "name": "Carlsen, Magnus",
+            "federation": "Norway",
+            "ELO": "2847",
+            "Byear": "1990"
+          },
+          {
+              "name": "Caruana, Fabiano",
+              "federation": "USA",
+              "ELO": "2820",
+              "Byear": "1992"
+          }
+        ]; break;
+
+      default: 
+        list = new Array<Player>();
+    }
+
+    return of(list);
   }
 }
 
@@ -35,7 +62,13 @@ describe('PlayersListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule, SharedModule],
+      imports: [
+        RouterTestingModule.withRoutes([{
+          path: ':region',
+          component: PlayersListComponent
+        }]), 
+        FormsModule, 
+        SharedModule],
       declarations: [ PlayersListComponent, FilterPipe ],
       providers: [
         { provide: PlayersService, useClass: PlayersServiceMock },

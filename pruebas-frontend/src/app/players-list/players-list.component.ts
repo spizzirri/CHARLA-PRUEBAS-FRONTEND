@@ -42,6 +42,14 @@ export class PlayersListComponent implements OnInit, OnDestroy {
     }
   }
 
+  deletePlayer(i:number, event: Event){
+
+    this.players.splice(i, 1);
+    // We need to genere a new instance to fire the pipe that is in the ngFor
+    this.players = [...this.players];
+    event.stopPropagation();
+  }
+
   setClickedPlayer(player:Player){
     this.playersService.setPlayer(player);
   }
