@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -29,6 +29,12 @@ class PlayersServiceMock {
             "federation": "Argentina",
             "ELO": "2629",
             "Byear": "1987"
+          },
+          {
+            "name": "Martin, Sandro",
+            "federation": "Argentina",
+            "ELO": "2629",
+            "Byear": "1987"
           }
         ]; break;
 
@@ -45,6 +51,18 @@ class PlayersServiceMock {
               "federation": "USA",
               "ELO": "2820",
               "Byear": "1992"
+          },
+          {
+            "name": "Ding, Liren",
+            "federation": "China",
+            "ELO": "2799",
+            "Byear": "1992"
+          },
+          {
+            "name": "Nepomniachtchi, Ian",
+            "federation": "Russia",
+            "ELO": "2792",
+            "Byear": "1990"
           }
         ]; break;
 
@@ -96,7 +114,7 @@ describe('PlayersListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should show just the player "Pichot, Alan"
+  it(`should show just the player called "Pichot, Alan"
       when the word "Alan" is typped in the input filter box
        and there is not other row with the word "Alan"`, ()=>{
 
@@ -118,5 +136,44 @@ describe('PlayersListComponent', () => {
         expect(rowsAfter.length).toBe(1);
         expect(AlanRowsAfter.length).toBe(1);
 
+    })
+
+  it(`should show just the players from "USA"
+      when the word "USA" is typped in the input filter box
+      and there is not other row with the word "USA"`, ()=>{
+
+        const filterValue = "USA";
+
+        // No tenemos bien resuelto este mock.
+        // Debemos setear nuevamente un valor de retorno
+        // E invocar nuevamente al ngOnInit. 
+        const activatedRouteSpy = getTestBed().inject(ActivatedRoute);
+        (activatedRouteSpy as any).paramMap = of({ 
+                                                get(param:string){ 
+                                                    return param ==="region"? 
+                                                            'wrd': 
+                                                            new Error("[ActivatedRoute] Wrong param") } 
+                                                })
+        
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        const rowsBefore = fixture.debugElement.queryAll(By.css('tr'));
+        const USARowsBefore = rowsBefore.filter( row => row.nativeElement.textContent.includes(filterValue))
+
+        expect(rowsBefore.length).toBe(4);
+        expect(USARowsBefore.length).toBe(1);
+
+        const filterElement = fixture.debugElement.query(By.css('.filter-container input#filter'));
+        filterElement.nativeElement.value = filterValue;
+        filterElement.nativeElement.dispatchEvent(new Event('input'));
+
+        fixture.detectChanges();
+
+        const rowsAfter = fixture.debugElement.queryAll(By.css('tr'));
+        const USARowsAfter = rowsAfter.filter( row => row.nativeElement.textContent.includes(filterValue))
+
+        expect(rowsAfter.length).toBe(1);
+        expect(USARowsAfter.length).toBe(1);
     })
 });
