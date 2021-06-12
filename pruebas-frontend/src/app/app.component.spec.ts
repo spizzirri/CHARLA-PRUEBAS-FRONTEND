@@ -1,36 +1,24 @@
-import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 import { CommonModule, Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component } from '@angular/core';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Router, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { DetailsPanelComponent } from './shared/details-panel/details-panel.component';
-import { HttpClientModule } from '@angular/common/http';
-import { PlayersListComponent } from './players-list/players-list.component';
-import { SharedModule } from './shared/share.module';
-import { PlayersService } from './shared/services/players.service';
-import { of } from 'rxjs';
+import { NavigationPanelComponent } from './shared/navigation-panel/navigation-panel.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { FilterPipe } from './shared/pipes/filter.pipe';
-import { Injectable } from '@angular/core';
+import { PlayersService } from './shared/services/players.service';
+import { SharedModule } from './shared/share.module';
 
-@Injectable()
-class PlayersServiceMock extends PlayersService{
-  getListBy(){
-    return of([
-      {
-        "name": "Pichot, Alan",
-        "federation": "Argentina",
-        "ELO": "2630",
-        "Byear": "1998"
-      },
-      {
-        "name": "Mareco, Sandro",
-        "federation": "Argentina",
-        "ELO": "2629",
-        "Byear": "1987"
-      }
-    ])
-  }
+@Component({
+  selector: 'router-outlet',
+  template: '<p>Fake Component</p>'
+})
+class PlayersListComponentSub{
+
 }
 
 describe('AppComponent', () => {
@@ -38,35 +26,25 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule.withRoutes([{
           path: 'not-found',
           component: NotFoundComponent
         },
         {
           path: ':region',
-          component: PlayersListComponent
+          component: PlayersListComponentSub
         }]),
         SharedModule
       ],
       declarations: [
         AppComponent,
+        NavigationPanelComponent,
         DetailsPanelComponent,
-        PlayersListComponent,
+        PlayersListComponentSub,
         FilterPipe
       ],
-      providers: [
-        { provide: PlayersService, useClass: PlayersServiceMock },
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            paramMap: of({ get(param:string){ 
-                              return param ==="region"? 
-                                'arg': 
-                                new Error("[ActivatedRoute] Wrong param") } })
-          }
-        }
-      ]
+      providers: [PlayersService]
     }).compileComponents();
   });
 
@@ -75,6 +53,25 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
+
+  it(`should be rendering the following components: 
+       * 1 navigation, 
+       * 1 panel 
+       * 1 router-outlet  
+      when the AppComponent is loaded"`, 
+    ()=>{
+      const fixture = TestBed.createComponent(AppComponent);
+      fixture.detectChanges();
+
+      const navbarElem = fixture.debugElement.queryAll(By.directive(NavigationPanelComponent));
+      const detailsPanelElem = fixture.debugElement.queryAll(By.directive(DetailsPanelComponent));
+      const routerOutletElem = fixture.debugElement.queryAll(By.directive(RouterOutlet));
+
+      expect(navbarElem).toHaveSize(1);
+      expect(detailsPanelElem).toHaveSize(1);
+      expect(routerOutletElem).toHaveSize(1);
+    }
+  )
 
   it(`should navigate to the "Not-Found" page
       when the url is "not-found"`, 
@@ -87,21 +84,6 @@ describe('AppComponent', () => {
         fixture.whenStable().then(() => {
           expect(location.path()).toEqual('/not-found');
           fixture.detectChanges();
-        });
-      })
-    )
-  )
-
-  it(`shouldn't navigate to the "Not-Found page
-      when the url is "arg""`, 
-    waitForAsync(
-      inject([Router, Location], (router: Router, location:Location)=>{
-
-        router.navigateByUrl('arg');
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(location.path()).toEqual('/arg');
         });
       })
     )
