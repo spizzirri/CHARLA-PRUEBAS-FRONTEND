@@ -13,7 +13,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     DetailsPanelComponent,
     NavigationPanelComponent,
     NotFoundComponent,
-    FilterPipe    
+    FilterPipe
   ],
   imports: [
     CommonModule,
