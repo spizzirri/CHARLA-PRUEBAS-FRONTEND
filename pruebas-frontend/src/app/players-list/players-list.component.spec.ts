@@ -121,7 +121,7 @@ describe('PlayersListComponent', () => {
         const rowsBefore = fixture.debugElement.queryAll(By.css('tr'));
         const AlanRowsBefore = rowsBefore.filter( row => row.nativeElement.textContent.includes('Alan'))
 
-        expect(rowsBefore.length).toBe(2);
+        expect(rowsBefore.length).toBe(3);
         expect(AlanRowsBefore.length).toBe(1);
 
         const filterElement = fixture.debugElement.query(By.css('.filter-container input#filter'));
