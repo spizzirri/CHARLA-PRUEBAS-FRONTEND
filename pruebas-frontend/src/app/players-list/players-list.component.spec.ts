@@ -138,6 +138,45 @@ describe('PlayersListComponent', () => {
 
     })
 
+    it(`shouldn't show the player called "Pichot, Alan"
+        after the delete button is clicked`, ()=>{
+
+        const rowsBefore = fixture.debugElement.queryAll(By.css('tr'));
+        const AlanRowsBefore = rowsBefore.filter( row => row.nativeElement.textContent.includes('Alan'))
+
+        expect(rowsBefore).toHaveSize(3);
+        expect(AlanRowsBefore).toHaveSize(1);
+
+        const deleteButton = AlanRowsBefore[0].query(By.css('td button'));
+        deleteButton.nativeElement.click();
+
+        fixture.detectChanges();
+
+        const rowsAfter = fixture.debugElement.queryAll(By.css('tr'));
+        const AlanRowsAfter = rowsAfter.filter( row => row.nativeElement.textContent.includes('Alan'))
+
+        expect(rowsAfter).toHaveSize(2);
+        expect(AlanRowsAfter).toHaveSize(0);
+    })
+
+    it(`should show the message "☢ No more players ☢"
+        when all players are deleted`, ()=>{
+     
+      let row = fixture.debugElement.query(By.css('tr'));
+      while(row){
+        const deleteButton = row.query(By.css('td button'));
+        deleteButton.nativeElement.click();
+        fixture.detectChanges();
+        row = fixture.debugElement.query(By.css('tr'));
+      }
+
+      const rowsAfterDeletingElems = fixture.debugElement.queryAll(By.css('tr'));
+      expect(rowsAfterDeletingElems).toHaveSize(0);
+
+      const messageElems = fixture.debugElement.query(By.css('p'))
+      expect(messageElems.nativeElement.textContent.trim()).toBe('☢ No more players ☢');
+    })
+
   it(`should show just the players from "USA"
       when the word "USA" is typped in the input filter box
       and there is not other row with the word "USA"`, ()=>{

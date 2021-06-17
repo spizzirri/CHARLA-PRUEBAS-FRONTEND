@@ -3,23 +3,29 @@
         <label for="filter">Filter</label>
         <input id="filter" type="text" placeholder="Type to search" [(ngModel)]="textToFilter">
     </div>
-    <table>
-        <thead>
-            <th align="left">Name</th>
-            <th align="left">Federation</th>
-            <th align="left">ELO</th>
-            <th align="left"></th>
-        </thead>
+    <div *ngIf="players && players.length > 0; then tableBlock else messageBlock"></div>
+    <ng-template #tableBlock>
+        <table>
+            <thead>
+                <th align="left">Name</th>
+                <th align="left">Federation</th>
+                <th align="left">ELO</th>
+                <th align="left"></th>
+            </thead>
 
-        <tbody>
-        <tr *ngFor="let player of players | filter: textToFilter; let i = index" (click)="setClickedPlayer(player)">
-                <td>{{ player.name }}</td>
-                <td>{{ player.federation }}</td>
-                <td>{{ player.ELO }}</td>
-                <td>
-                    <button (click)="deletePlayer(i, $event)"> Delete </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr *ngFor="let player of players | filter: textToFilter; let i = index" (click)="setClickedPlayer(player)">
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.federation }}</td>
+                    <td>{{ player.ELO }}</td>
+                    <td>
+                        <button (click)="deletePlayer(i, $event)"> Delete </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-template>
+    <ng-template #messageBlock>
+        <p>&#x2622; No more players &#x2622;</p>
+    </ng-template>
 </main>
