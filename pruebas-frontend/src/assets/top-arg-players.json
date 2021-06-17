@@ -1,62 +1,65 @@
-[
-    {
-        "name": "Pichot, Alan",
-        "federation": "Argentina",
-        "ELO": "2630",
-        "Byear": "1998"
-    },
-    {
-        "name": "Mareco, Sandro",
-        "federation": "Argentina",
-        "ELO": "2629",
-        "Byear": "1987"
-    },
-    {
-        "name": "Flores, Diego",
-        "federation": "Argentina",
-        "ELO": "2599",
-        "Byear": "1982"
-    },
-    {
-        "name": "Felgaer, Ruben",
-        "federation": "Argentina",
-        "ELO": "2572",
-        "Byear": "1981"
-    },
-    {
-        "name": "Peralta, Fernando",
-        "federation": "Argentina",
-        "ELO": "2566",
-        "Byear": "1979"
-    },
-    {
-        "name": "Perez Ponsa, Federico",
-        "federation": "Argentina",
-        "ELO": "2554",
-        "Byear": "1993"
-    },
-    {
-        "name": "Sosa, Tomas",
-        "federation": "Argentina",
-        "ELO": "2541",
-        "Byear": "1998"
-    },
-    {
-        "name": "Tristan, Leonardo",
-        "federation": "Argentina",
-        "ELO": "2535",
-        "Byear": "1989"
-    },
-    {
-        "name": "Iermito, Sebastian",
-        "federation": "Argentina",
-        "ELO": "2528",
-        "Byear": "1993"
-    },
-    {
-        "name": "Krysa, Leandro",
-        "federation": "Argentina",
-        "ELO": "2527",
-        "Byear": "1992"
-    }
-]
+{
+    "region": "ARGENTINA",
+    "list":[
+        {
+            "name": "Pichot, Alan",
+            "federation": "Argentina",
+            "ELO": "2630",
+            "Byear": "1998"
+        },
+        {
+            "name": "Mareco, Sandro",
+            "federation": "Argentina",
+            "ELO": "2629",
+            "Byear": "1987"
+        },
+        {
+            "name": "Flores, Diego",
+            "federation": "Argentina",
+            "ELO": "2599",
+            "Byear": "1982"
+        },
+        {
+            "name": "Felgaer, Ruben",
+            "federation": "Argentina",
+            "ELO": "2572",
+            "Byear": "1981"
+        },
+        {
+            "name": "Peralta, Fernando",
+            "federation": "Argentina",
+            "ELO": "2566",
+            "Byear": "1979"
+        },
+        {
+            "name": "Perez Ponsa, Federico",
+            "federation": "Argentina",
+            "ELO": "2554",
+            "Byear": "1993"
+        },
+        {
+            "name": "Sosa, Tomas",
+            "federation": "Argentina",
+            "ELO": "2541",
+            "Byear": "1998"
+        },
+        {
+            "name": "Tristan, Leonardo",
+            "federation": "Argentina",
+            "ELO": "2535",
+            "Byear": "1989"
+        },
+        {
+            "name": "Iermito, Sebastian",
+            "federation": "Argentina",
+            "ELO": "2528",
+            "Byear": "1993"
+        },
+        {
+            "name": "Krysa, Leandro",
+            "federation": "Argentina",
+            "ELO": "2527",
+            "Byear": "1992"
+        }
+    ]
+}

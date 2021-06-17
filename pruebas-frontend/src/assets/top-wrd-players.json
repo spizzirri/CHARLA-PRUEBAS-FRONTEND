@@ -1,62 +1,65 @@
-[
-    {
-        "name": "Carlsen, Magnus",
-        "federation": "Norway",
-        "ELO": "2847",
-        "Byear": "1990"
-    },
-    {
-        "name": "Caruana, Fabiano",
-        "federation": "USA",
-        "ELO": "2820",
-        "Byear": "1992"
-    },
-    {
-        "name": "Ding, Liren",
-        "federation": "China",
-        "ELO": "2799",
-        "Byear": "1992"
-    },
-    {
-        "name": "Nepomniachtchi, Ian",
-        "federation": "Russia",
-        "ELO": "2792",
-        "Byear": "1990"
-    },
-    {
-        "name": "Aronian, Levon",
-        "federation": "Armenia",
-        "ELO": "2781",
-        "Byear": "1982"
-    },
-    {
-        "name": "Giri, Anish",
-        "federation": "Netherlands",
-        "ELO": "2780",
-        "Byear": "1994"
-    },
-    {
-        "name": "Grischuk, Alexander",
-        "federation": "Russia",
-        "ELO": "2776",
-        "Byear": "1983"
-    },
-    {
-        "name": "Mamedyarov, Shakhriyar",
-        "federation": "Azerbaijan",
-        "ELO": "2770",
-        "Byear": "1985"
-    },
-    {
-        "name": "So, Wesley",
-        "federation": "USA",
-        "ELO": "2770",
-        "Byear": "1993"
-    },
-    {
-        "name": "Radjabov, Teimour",
-        "federation": "Azerbaijan",
-        "ELO": "2765",
-        "Byear": "1987"
-    }
-]
+{
+    "region": "WORLD",
+    "list":[
+        {
+            "name": "Carlsen, Magnus",
+            "federation": "Norway",
+            "ELO": "2847",
+            "Byear": "1990"
+        },
+        {
+            "name": "Caruana, Fabiano",
+            "federation": "USA",
+            "ELO": "2820",
+            "Byear": "1992"
+        },
+        {
+            "name": "Ding, Liren",
+            "federation": "China",
+            "ELO": "2799",
+            "Byear": "1992"
+        },
+        {
+            "name": "Nepomniachtchi, Ian",
+            "federation": "Russia",
+            "ELO": "2792",
+            "Byear": "1990"
+        },
+        {
+            "name": "Aronian, Levon",
+            "federation": "Armenia",
+            "ELO": "2781",
+            "Byear": "1982"
+        },
+        {
+            "name": "Giri, Anish",
+            "federation": "Netherlands",
+            "ELO": "2780",
+            "Byear": "1994"
+        },
+        {
+            "name": "Grischuk, Alexander",
+            "federation": "Russia",
+            "ELO": "2776",
+            "Byear": "1983"
+        },
+        {
+            "name": "Mamedyarov, Shakhriyar",
+            "federation": "Azerbaijan",
+            "ELO": "2770",
+            "Byear": "1985"
+        },
+        {
+            "name": "So, Wesley",
+            "federation": "USA",
+            "ELO": "2770",
+            "Byear": "1993"
+        },
+        {
+            "name": "Radjabov, Teimour",
+            "federation": "Azerbaijan",
+            "ELO": "2765",
+            "Byear": "1987"
+        }
+    ]
+}

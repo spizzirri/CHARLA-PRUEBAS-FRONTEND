@@ -29,6 +29,4 @@ export class PlayersService {
     else
       return throwError(new Error("Invalid Region"))
   }
-
-
 }
