@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { NotFoundComponent } from './not-found.component';
 
@@ -22,4 +23,10 @@ describe('NotFoundComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`should have the message "☢ Region Not Found ☢"
+      when after rendering`, ()=>{
+      const messageElem = fixture.debugElement.query(By.css('p'))
+      expect(messageElem.nativeElement.textContent.trim()).toBe('☢ Region Not Found ☢');
+    })
 });
