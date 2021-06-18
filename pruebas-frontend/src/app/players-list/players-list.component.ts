@@ -16,7 +16,7 @@ export class PlayersListComponent implements OnInit, OnDestroy {
   private activatedRouteSubscription: Subscription = Subscription.EMPTY;
   public textToFilter:string;
   public players:Array<Player>;
-  public fullRegionName:string;
+  public regionName:string | null;
 
   constructor(private playersService:PlayersService,
               private activatedRoute: ActivatedRoute,
@@ -24,7 +24,7 @@ export class PlayersListComponent implements OnInit, OnDestroy {
 
     this.players = new Array<Player>();
     this.textToFilter = "";
-    this.fullRegionName = "";
+    this.regionName = "";
   }
 
   ngOnInit(): void {
@@ -37,9 +37,9 @@ export class PlayersListComponent implements OnInit, OnDestroy {
     if(region){
       this.playersSubscription = this.playersService
         .getListBy(region).subscribe(
-            (players:any) => { 
-              this.players = players.list; 
-              this.fullRegionName = players.region
+            (players:any) => {
+              this.players = players?.list ? [...players?.list] : [];
+              this.regionName = region?.toUpperCase() || null;
             },
             _ => this.router.navigateByUrl("not-found"));
     }else{

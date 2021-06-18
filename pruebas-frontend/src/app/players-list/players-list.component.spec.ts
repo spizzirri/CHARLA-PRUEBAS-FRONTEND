@@ -1,10 +1,11 @@
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Player } from '../models/player';
+import { NotFoundComponent } from '../shared/not-found/not-found.component';
 import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { PlayersService } from '../shared/services/players.service';
 import { SharedModule } from '../shared/share.module';
@@ -16,7 +17,7 @@ class PlayersServiceMock {
     let response:any = {};
 
     switch(region){
-      case "arg": 
+      case "argentina": 
         response = {
           region: "ARGENTINA",
           list:[
@@ -41,7 +42,7 @@ class PlayersServiceMock {
           ]
         }; break;
 
-      case "wrd":
+      case "world":
         response = {
           region: "WORLD",
           list:[
@@ -73,7 +74,7 @@ class PlayersServiceMock {
         }; break;
 
       default: 
-        response = new Array<Player>();
+        return throwError(new Error("Invalid Region"))
     }
 
     return of(response);
@@ -87,10 +88,11 @@ describe('PlayersListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([{
-          path: ':region',
-          component: PlayersListComponent
-        }]), 
+        RouterTestingModule.withRoutes([
+          {
+            path: ':region',
+            component: PlayersListComponent
+          }]), 
         FormsModule, 
         SharedModule],
       declarations: [ PlayersListComponent, FilterPipe ],
@@ -101,7 +103,7 @@ describe('PlayersListComponent', () => {
           useValue: {
             paramMap: of({ get(param:string){ 
                               return param ==="region"? 
-                                'arg': 
+                                'argentina': 
                                 new Error("[ActivatedRoute] Wrong param") } })
           }
         }
@@ -165,7 +167,7 @@ describe('PlayersListComponent', () => {
         expect(AlanRowsAfter).toHaveSize(0);
     })
 
-    it(`should show the message "☢ No more players ☢"
+    it(`should show the message "☢ No players ☢"
         when all players are deleted`, ()=>{
      
       let row = fixture.debugElement.query(By.css('tr'));
@@ -180,8 +182,52 @@ describe('PlayersListComponent', () => {
       expect(rowsAfterDeletingElems).toHaveSize(0);
 
       const messageElems = fixture.debugElement.query(By.css('p'))
-      expect(messageElems.nativeElement.textContent.trim()).toBe('☢ No more players ☢');
+      expect(messageElems.nativeElement.textContent.trim()).toBe('☢ No players ☢');
     })
+
+  it(`should show "TOP 10 Players - WORLD" 
+       when the url para is usa`, ()=>{
+
+    const activatedRouteSpy = getTestBed().inject(ActivatedRoute);
+        (activatedRouteSpy as any).paramMap = of({ 
+                                                get(param:string){ 
+                                                    return param ==="region"? 
+                                                            'world': 
+                                                            new Error("[ActivatedRoute] Wrong param") } 
+                                                })
+        
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const h3Elem = fixture.debugElement.query(By.css('h3'));
+    expect(h3Elem.nativeElement.textContent.trim()).toBe('TOP 10 Players - WORLD');
+  })
+
+  it(`should redirect to "not-found"  
+       when the service return an error`, ()=>{
+
+    const activatedRouteSpy = getTestBed().inject(ActivatedRoute);
+        (activatedRouteSpy as any).paramMap = of({ 
+                                                get(param:string){ 
+                                                    return param ==="region"? 
+                                                            'uruguay': 
+                                                            new Error("[ActivatedRoute] Wrong param") } 
+                                                })
+    
+    const routerRef = getTestBed().inject(Router);
+    const navigateByUrlSpy = spyOn(routerRef, 'navigateByUrl').and.resolveTo(true);
+    component.ngOnInit();
+    fixture.detectChanges();
+    
+    expect(navigateByUrlSpy).toHaveBeenCalledOnceWith('not-found');
+  })
+
+
+  it(`should show "TOP 10 Players - ARGENTINA" when the url para is argentina`, ()=>{
+
+    const h3Elem = fixture.debugElement.query(By.css('h3'));
+    expect(h3Elem.nativeElement.textContent.trim()).toBe('TOP 10 Players - ARGENTINA');
+  })
 
   it(`should show just the players from "USA"
       when the word "USA" is typped in the input filter box
@@ -196,7 +242,7 @@ describe('PlayersListComponent', () => {
         (activatedRouteSpy as any).paramMap = of({ 
                                                 get(param:string){ 
                                                     return param ==="region"? 
-                                                            'wrd': 
+                                                            'world': 
                                                             new Error("[ActivatedRoute] Wrong param") } 
                                                 })
         

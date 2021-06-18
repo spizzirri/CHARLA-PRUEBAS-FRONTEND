@@ -49,7 +49,7 @@ describe('NavigationPanelComponent', () => {
       expect(currentTexts).toEqual(expectedTexts);
   })
 
-  it('should navigate to "/arg" when ARGENTINA is clicked', ()=>{
+  it('should navigate to "/argentina" when ARGENTINA is clicked', ()=>{
 
     const location = getTestBed().inject(Location);
     const argElement = fixture.debugElement.queryAll(By.css('nav li ul a'))[0];
@@ -57,11 +57,11 @@ describe('NavigationPanelComponent', () => {
 
     expect(argElement.nativeElement.textContent.trim()).toBe('ARGENTINA')
     fixture.whenStable().then(()=>{
-      expect(location.path()).toBe('/arg');
+      expect(location.path()).toBe('/argentina');
     })
   })
 
-  it('should navigate to "/ame" when THE AMERICAS is clicked', ()=>{
+  it('should navigate to "/usa" when THE AMERICAS is clicked', ()=>{
 
     const location = getTestBed().inject(Location);
     const argElement = fixture.debugElement.queryAll(By.css('nav li ul a'))[1];
@@ -69,11 +69,11 @@ describe('NavigationPanelComponent', () => {
 
     expect(argElement.nativeElement.textContent.trim()).toBe('THE AMERICAS')
     fixture.whenStable().then(()=>{
-      expect(location.path()).toBe('/ame');
+      expect(location.path()).toBe('/usa');
     })
   })
 
-  it('should navigate to "/wrd" when WORLD is clicked', ()=>{
+  it('should navigate to "/world" when WORLD is clicked', ()=>{
 
     const location = getTestBed().inject(Location);
     const argElement = fixture.debugElement.queryAll(By.css('nav li ul a'))[2];
@@ -81,7 +81,7 @@ describe('NavigationPanelComponent', () => {
 
     expect(argElement.nativeElement.textContent.trim()).toBe('WORLD')
     fixture.whenStable().then(()=>{
-      expect(location.path()).toBe('/wrd');
+      expect(location.path()).toBe('/world');
     })
   })
 });

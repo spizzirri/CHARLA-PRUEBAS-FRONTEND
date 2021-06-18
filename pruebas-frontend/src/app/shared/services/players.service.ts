@@ -8,7 +8,7 @@ import { Player } from 'src/app/models/player';
 })
 export class PlayersService {
 
-  private regions:Array<string> = ["ame", "arg", "wrd"];
+  private regions:Array<string> = ["usa", "argentina", "world"];
   private subject:Subject<Player>;
 
   constructor(private http:HttpClient) { 

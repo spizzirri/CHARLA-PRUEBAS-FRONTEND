@@ -1,5 +1,5 @@
 <main>
-    <h3> TOP 10 Players - {{fullRegionName}} </h3>
+    <h3> TOP 10 Players - {{regionName}} </h3>
     <div class="filter-container">
         <label for="filter">Filter</label>
         <input id="filter" type="text" placeholder="Type to search" [(ngModel)]="textToFilter">
@@ -27,6 +27,6 @@
         </table>
     </ng-template>
     <ng-template #messageBlock>
-        <p>&#x2622; No more players &#x2622;</p>
+        <p>&#x2622; No players &#x2622;</p>
     </ng-template>
 </main>
