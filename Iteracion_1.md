@@ -122,7 +122,8 @@ describe('PlayersListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PlayersListComponent);
     component = fixture.componentInstance;
-    // Se renderiza / actualiza el DOM
+    // Se renderiza / actualiza el DOM 
+    // Cuando se ejecuta por primera vez se lanza el evento onInit de los componentes.
     fixture.detectChanges();
   });
 
@@ -137,7 +138,7 @@ En casos mas complejos esto se volvia engorroso y terminabamos optando por pisar
 
 ### Codigo ejemplo 2
 
-Al momento de hacer esta prueba nos encontramos con otro problema, el servicio que nos detecta la url tambien esta mockeado globalmente (siempre devolvia 'arg'). Se ve tuvo que pisar el mock localmente y re iniciar el componente con el ngOnInit() para tomar el nuevo valor.
+Al momento de hacer esta prueba nos encontramos con otro problema, el servicio que nos detecta la url tambien esta mockeado globalmente (siempre devolvia 'arg'). Se tuvo que pisar el mock de forma local y encima re iniciar el componente llamando al ngOnInit() para tomar el nuevo valor.
 
 ```js
 it(`should show just the players from "USA"
