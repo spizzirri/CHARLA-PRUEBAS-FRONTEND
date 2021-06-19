@@ -1,49 +1,33 @@
-# Iteración 3
+# Iteración 5
 
-## Esto es muy engorroso de escribir, demasiado verboso.
+## Solo agreguemos un método mas, un initComponent
 
 ### ¿Con que problemas no fuimos encontrando en la iteración 2?.
 
-Afortunadamente, ya habíamos logrado superar la confusion que a veces se producia por mal interpretar con que datos se corrian los tests dado que ya no teniamos que ir a ver que datos globales tenia seteado un servicio, pero nos seguía faltando algo, mejorar la verbosidad del codigo para seleccionar elementos por ejemplo. **¡No puede ser que tengamos que escribir tantas lineas para dar un click!** Si lograbamos eso, tambien nos iba a ayudar a mejorar nuestra fluidez para escribir y la legibilidad. **Queríamos leer que se estaba probando**, no leer como lo hace y eso no lo estabamos consiguiendo.
+En nuestro proyecto, al momento en el que estabamos trabajando en estas soluciones, teniamos la versión 9 del framework llamado Angular. Esto es importante porque la forma en la que nos estaba generando el codigo base para escribir las pruebas unitarias nos estaba generando un problema. 
 
-### ¿Como reaccionamos?
-
-Comenzamos a pensar en la idea de encapsular el codigo que necesita jasmine para interactuar con la vista, y asi fue como empezó a cobrar vida nuestra clase ViewObject. La realidad era que solo ibamos a necesitar una referencia a nuestro componente y desde ahi ya tendríamos acceso a todo lo necesario.
-
-
-### ViewObject
+### Contexto 
 
 ```js
-import { DebugElement } from '@angular/core';
-import { ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
-export class ViewObject {
-  private _fixture: ComponentFixture<any>;
-
-  constructor(fixture:ComponentFixture<any>) {
-    this._fixture = fixture;
-  }
-
-  get fixture(): ComponentFixture<any> {
-    return this._fixture;
-  }
-
-  updateView() {
-    this._fixture.detectChanges();
-  }
-
-  getElement(cssSelector: string): DebugElement {
-    return this._fixture.debugElement.query(By.css(cssSelector));
-  }
-
-  getNativeElement(cssSelector: string): any {
-    return this._fixture.debugElement.query(By.css(cssSelector)).nativeElement;
-  }
-
-  clickOnElement(cssSelector: string) {
-    this.getNativeElement(cssSelector).click();
-  }
+  beforeEach(() => {
+    // Crea el componente
+    fixture = TestBed.createComponent(PlayersListComponent);
+    // Obtiene la instancia de la clase
+    component = fixture.componentInstance;
+    // Actualiza / Refresca el DOM
+    // La primera vez que se llama produce la ejecución del evento onInit.
+    fixture.detectChanges();
+  });
 ```
 
-### Codigo Ejemplo
+Este beforeEach lo que hace es instanciar el componente y refrescar/actualizar el HTML ( eso es lo que hace el metodo **detectChanges** )
+En el caso particular de Angular, cuando ese metodo se ejecuta por primera vez, se invoca al evento **onInit** de Angular. 
+
+### ¿Cual era el problema?
+
+El problema que teniamos era que esa primera vez que se ejecuta el onInit y dado que queríamos tener los mocks de forma local,
+necesitabamos que el primer detectChanges se ejecute despues.
+
+### ¿Como reacciónamos? 
+
+Decidimos eliminar ese beforeEach y crear una función global que se encargue de inicializar el componente luego de haber configurado las respuestas de cada servicio.

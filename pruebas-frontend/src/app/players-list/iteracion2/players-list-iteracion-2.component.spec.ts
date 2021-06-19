@@ -4,12 +4,11 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
-import { Player } from '../models/player';
-import { NotFoundComponent } from '../shared/not-found/not-found.component';
-import { FilterPipe } from '../shared/pipes/filter.pipe';
-import { PlayersService } from '../shared/services/players.service';
-import { SharedModule } from '../shared/share.module';
-import { PlayersListComponent } from './players-list.component';
+import { FilterPipe } from '../../shared/pipes/filter.pipe';
+import { PlayersService } from '../../shared/services/players.service';
+import { SharedModule } from '../../shared/share.module';
+import { PlayersListComponent } from '../players-list.component';
+import { getPlayersWorldRegion } from './players-list-iteracion-2.component.spec.helper';
 
 class PlayersServiceMock {
   getListBy(region:string){
@@ -81,7 +80,7 @@ class PlayersServiceMock {
   }
 }
 
-describe('PlayersListComponent', () => {
+describe('[Iteracion 2] - PlayersListComponent', () => {
   let component: PlayersListComponent;
   let fixture: ComponentFixture<PlayersListComponent>;
 
@@ -186,7 +185,7 @@ describe('PlayersListComponent', () => {
     })
 
   it(`should show "TOP 10 Players - WORLD" 
-       when the url para is usa`, ()=>{
+       when the url para is world`, ()=>{
 
     const activatedRouteSpy = getTestBed().inject(ActivatedRoute);
         (activatedRouteSpy as any).paramMap = of({ 
@@ -246,16 +245,8 @@ describe('PlayersListComponent', () => {
 
         const filterValue = "USA";
 
-        // No tenemos bien resuelto este mock.
-        // Debemos setear nuevamente un valor de retorno
-        // E invocar nuevamente al ngOnInit. 
-        const activatedRouteSpy = getTestBed().inject(ActivatedRoute);
-        (activatedRouteSpy as any).paramMap = of({ 
-                                                get(param:string){ 
-                                                    return param ==="region"? 
-                                                            'world': 
-                                                            new Error("[ActivatedRoute] Wrong param") } 
-                                                })
+        const playerServiceRef = getTestBed().inject(PlayersService);
+        spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getPlayersWorldRegion()))
         
         component.ngOnInit();
         fixture.detectChanges();
