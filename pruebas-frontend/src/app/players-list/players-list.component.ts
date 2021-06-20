@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Player } from '../models/player';
 import { PlayersService } from '../shared/services/players.service';
 
@@ -30,6 +30,7 @@ export class PlayersListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRouteSubscription = this.activatedRoute.paramMap
       .pipe(map(param => param.get('region')))
+      .pipe(filter(region => region !== null))
       .subscribe(region => this.loadList(region))
   }
 
@@ -42,8 +43,6 @@ export class PlayersListComponent implements OnInit, OnDestroy {
               this.regionName = region?.toUpperCase() || null;
             },
             _ => this.router.navigateByUrl("not-found"));
-    }else{
-      this.router.navigateByUrl("not-found")
     }
   }
 
