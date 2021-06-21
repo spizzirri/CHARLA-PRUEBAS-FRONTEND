@@ -10,14 +10,14 @@ import { SharedModule } from '../../shared/share.module';
 import { PlayersListComponent } from '../players-list.component';
 import { getAListOfPlayersWhereOneOfThemIsCalledAlanPichot, 
          getAListOfSamplePlayers, 
-         getAListOfPlayersWhereOneOfThemIsFromUSA } from './players-list-iteracion-3.component.spec.helper';
+         getAListOfPlayersWhereOneOfThemIsFromUSA } from './players-list-iteracion-4.component.spec.helper';
+import { ViewObject } from '../../testing/ViewObject';
 import { PlayersServiceMock } from '../../testing/MockedClasses';
 
+let viewObject:ViewObject;
+let component:PlayersListComponent;
 
-let component: PlayersListComponent;
-let fixture: ComponentFixture<PlayersListComponent>;
-
-describe('[Iteracion 3] - PlayersListComponent', () => {
+describe('[Iteracion 4] - PlayersListComponent', () => {
 
   beforeEach(async () => {
 
@@ -54,20 +54,17 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
         (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
 
         initComponent();
-        const rowsBefore = fixture.debugElement.queryAll(By.css('tr'));
-        const AlanRowsBefore = rowsBefore.filter( row => row.nativeElement.textContent.includes('Alan'))
+        const rowsBefore = viewObject.getElements('tr');
+        const AlanRowsBefore = viewObject.getElementsByText('tr', 'Alan');
 
         expect(rowsBefore.length).toBe(3);
         expect(AlanRowsBefore.length).toBe(1);
 
-        const filterElement = fixture.debugElement.query(By.css('.filter-container input#filter'));
-        filterElement.nativeElement.value = 'Alan';
-        filterElement.nativeElement.dispatchEvent(new Event('input'));
+        viewObject.setText('.filter-container input#filter', 'Alan');
+        viewObject.updateView();
 
-        fixture.detectChanges();
-
-        const rowsAfter = fixture.debugElement.queryAll(By.css('tr'));
-        const AlanRowsAfter = rowsAfter.filter( row => row.nativeElement.textContent.includes('Alan'))
+        const rowsAfter = viewObject.getElements('tr');
+        const AlanRowsAfter = viewObject.getElementsByText('tr', 'Alan');
 
         expect(rowsAfter.length).toBe(1);
         expect(AlanRowsAfter.length).toBe(1);
@@ -84,19 +81,17 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
 
         initComponent();
 
-        const rowsBefore = fixture.debugElement.queryAll(By.css('tr'));
-        const AlanRowsBefore = rowsBefore.filter( row => row.nativeElement.textContent.includes('Alan'))
+        const rowsBefore = viewObject.getElements('tr');
+        const AlanRowsBefore = viewObject.getElementsByText('tr', 'Alan')
 
         expect(rowsBefore).toHaveSize(3);
         expect(AlanRowsBefore).toHaveSize(1);
 
-        const deleteButton = AlanRowsBefore[0].query(By.css('td button'));
-        deleteButton.nativeElement.click();
+        viewObject.clickOnElement('td button', AlanRowsBefore[0])
+        viewObject.updateView();
 
-        fixture.detectChanges();
-
-        const rowsAfter = fixture.debugElement.queryAll(By.css('tr'));
-        const AlanRowsAfter = rowsAfter.filter( row => row.nativeElement.textContent.includes('Alan'))
+        const rowsAfter = viewObject.getElements('tr');
+        const AlanRowsAfter = viewObject.getElementsByText('tr', 'Alan')
 
         expect(rowsAfter).toHaveSize(2);
         expect(AlanRowsAfter).toHaveSize(0);
@@ -111,19 +106,17 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
       (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
 
       initComponent();
-      let row = fixture.debugElement.query(By.css('tr'));
-      while(row){
-        const deleteButton = row.query(By.css('td button'));
-        deleteButton.nativeElement.click();
-        fixture.detectChanges();
-        row = fixture.debugElement.query(By.css('tr'));
+
+      while(viewObject.isThereA('tr')){
+        viewObject.clickOnElement('tr td button')
+        viewObject.updateView();
       }
 
-      const rowsAfterDeletingElems = fixture.debugElement.queryAll(By.css('tr'));
+      const rowsAfterDeletingElems = viewObject.getElements('tr');
       expect(rowsAfterDeletingElems).toHaveSize(0);
 
-      const messageElems = fixture.debugElement.query(By.css('p'))
-      expect(messageElems.nativeElement.textContent.trim()).toBe('☢ No players ☢');
+      const messageText = viewObject.getText('p');
+      expect(messageText).toBe('☢ No players ☢');
     })
 
   it(`should show "TOP 10 Players - WORLD" 
@@ -136,8 +129,8 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
 
     initComponent();
 
-    const h3Elem = fixture.debugElement.query(By.css('h3'));
-    expect(h3Elem.nativeElement.textContent.trim()).toBe('TOP 10 Players - WORLD');
+    const h3Text = viewObject.getText('h3');
+    expect(h3Text).toBe('TOP 10 Players - WORLD');
   })
 
   it(`should redirect to "not-found"  
@@ -163,10 +156,10 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
     const activatedRouteRef = getTestBed().inject(ActivatedRoute);
     (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
     
-    initComponent();        
+    initComponent();
   
-    const messageElems = fixture.debugElement.query(By.css('p'))
-    expect(messageElems.nativeElement.textContent.trim()).toBe('☢ No players ☢');
+    const messageText = viewObject.getText('p');
+    expect(messageText).toBe('☢ No players ☢');
   })
 
   it(`should show "TOP 10 Players - ARGENTINA" when the url param is argentina`, ()=>{
@@ -177,8 +170,9 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
     (<any>activatedRouteRef).paramMap = of({ get(){ return 'argentina' }})
 
     initComponent();
-    const h3Elem = fixture.debugElement.query(By.css('h3'));
-    expect(h3Elem.nativeElement.textContent.trim()).toBe('TOP 10 Players - ARGENTINA');
+
+    const h3Text = viewObject.getText('h3');
+    expect(h3Text).toBe('TOP 10 Players - ARGENTINA');
   })
 
   it(`should show just the players from "USA"
@@ -193,20 +187,17 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
       initComponent();
 
       const filterValue = "USA";
-      const rowsBefore = fixture.debugElement.queryAll(By.css('tr'));
-      const USARowsBefore = rowsBefore.filter( row => row.nativeElement.textContent.includes(filterValue))
+      const rowsBefore = viewObject.getElements('tr');
+      const USARowsBefore = viewObject.getElementsByText('tr', filterValue)
 
       expect(rowsBefore.length).toBe(4);
       expect(USARowsBefore.length).toBe(1);
 
-      const filterElement = fixture.debugElement.query(By.css('.filter-container input#filter'));
-      filterElement.nativeElement.value = filterValue;
-      filterElement.nativeElement.dispatchEvent(new Event('input'));
+      viewObject.setText('.filter-container input#filter', filterValue);
+      viewObject.updateView();
 
-      fixture.detectChanges();
-
-      const rowsAfter = fixture.debugElement.queryAll(By.css('tr'));
-      const USARowsAfter = rowsAfter.filter( row => row.nativeElement.textContent.includes(filterValue))
+      const rowsAfter = viewObject.getElements('tr');
+      const USARowsAfter = viewObject.getElementsByText('tr', filterValue)
 
       expect(rowsAfter.length).toBe(1);
       expect(USARowsAfter.length).toBe(1);
@@ -214,7 +205,7 @@ describe('[Iteracion 3] - PlayersListComponent', () => {
 });
 
 function initComponent(){
-  fixture = TestBed.createComponent(PlayersListComponent);
-  component = fixture.componentInstance;
-  fixture.detectChanges();
+  viewObject = new ViewObject(PlayersListComponent)
+  component = viewObject.fixture.componentInstance;
+  viewObject.updateView();
 }
