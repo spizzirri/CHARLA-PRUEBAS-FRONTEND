@@ -8,7 +8,7 @@ import { PlayersService } from '../../shared/services/players.service';
 import { SharedModule } from '../../shared/share.module';
 import { PlayersServiceMock } from '../../testing/MockedClasses';
 import { PlayersListComponent } from '../players-list.component';
-import { Step } from './players-list-iteracion-6.component.spec.step';
+import { Step } from './players-list.component.spec.step';
 
 describe('[Iteracion 6] - PlayersListComponent', () => {
 

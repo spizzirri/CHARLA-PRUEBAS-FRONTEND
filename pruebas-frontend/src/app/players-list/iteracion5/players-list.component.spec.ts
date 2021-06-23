@@ -1,23 +1,31 @@
-import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { FilterPipe } from '../../shared/pipes/filter.pipe';
 import { PlayersService } from '../../shared/services/players.service';
 import { SharedModule } from '../../shared/share.module';
 import { PlayersListComponent } from '../players-list.component';
 import { getAListOfPlayersWhereOneOfThemIsCalledAlanPichot, 
          getAListOfSamplePlayers, 
-         getAListOfPlayersWhereOneOfThemIsFromUSA } from './players-list-iteracion-4.component.spec.helper';
+         getAListOfPlayersWhereOneOfThemIsFromUSA, 
+         getSampleError,
+         getEmptySampleResponse} from './players-list.component.spec.helper';
 import { ViewObject } from '../../testing/ViewObject';
 import { PlayersServiceMock } from '../../testing/MockedClasses';
+import { PlayersSpy } from 'src/app/testing/PlayersSpy';
+import { RouterSpy } from 'src/app/testing/RouterSpy';
+import { ActivatedRouteSpy } from 'src/app/testing/ActivatedRouteSpy';
 
 let viewObject:ViewObject;
 let component:PlayersListComponent;
 
-describe('[Iteracion 4] - PlayersListComponent', () => {
+describe('[Iteracion 5] - PlayersListComponent', () => {
+
+  let playersSpy: PlayersSpy;
+  let routerSpy: RouterSpy;
+  let activatedRouteSpy: ActivatedRouteSpy;
 
   beforeEach(async () => {
 
@@ -37,6 +45,10 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
       ]
     })
     .compileComponents();
+
+    playersSpy = new PlayersSpy();
+    routerSpy = new RouterSpy();
+    activatedRouteSpy = new ActivatedRouteSpy();
   });
 
   it('should create', () => {
@@ -48,10 +60,8 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
       when the word "Alan" is typped in the input filter box
        and there is not other row with the word "Alan"`, ()=>{
 
-        const playerServiceRef = getTestBed().inject(PlayersService);
-        spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfPlayersWhereOneOfThemIsCalledAlanPichot()))
-        const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-        (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+        playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsCalledAlanPichot());
+        activatedRouteSpy.paramMap('sampleRegion');
 
         initComponent();
         const rowsBefore = viewObject.getElements('tr');
@@ -74,10 +84,8 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
     it(`shouldn't show the player called "Pichot, Alan"
         after the delete button is clicked`, ()=>{
 
-        const playerServiceRef = getTestBed().inject(PlayersService);
-        spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfPlayersWhereOneOfThemIsCalledAlanPichot()))
-        const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-        (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+        playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsCalledAlanPichot());
+        activatedRouteSpy.paramMap('sampleRegion');
 
         initComponent();
 
@@ -100,10 +108,8 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
     it(`should show the message "☢ No players ☢"
         when all players are deleted`, ()=>{
      
-      const playerServiceRef = getTestBed().inject(PlayersService);
-      spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfSamplePlayers()))
-      const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-      (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+      playersSpy.getListBy().return(getAListOfSamplePlayers());
+      activatedRouteSpy.paramMap('sampleRegion');
 
       initComponent();
 
@@ -122,10 +128,8 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
   it(`should show "TOP 10 Players - WORLD" 
       when the url para is world`, ()=>{
 
-    const playerServiceRef = getTestBed().inject(PlayersService);
-    spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfSamplePlayers()))
-    const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-    (<any>activatedRouteRef).paramMap = of({ get(){ return 'world' }})
+    playersSpy.getListBy().return(getAListOfSamplePlayers());
+    activatedRouteSpy.paramMap('world');
 
     initComponent();
 
@@ -136,25 +140,20 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
   it(`should redirect to "not-found"  
        when the service return an error`, ()=>{
 
-    const playerServiceRef = getTestBed().inject(PlayersService);
-    spyOn(playerServiceRef, 'getListBy').and.returnValue(throwError(new Error("Invalid Region")));
-    const routerRef = getTestBed().inject(Router);
-    const navigateByUrlSpy = spyOn(routerRef, 'navigateByUrl').and.resolveTo(true);
-    const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-    (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+    playersSpy.getListBy().throw(getSampleError())
+    const spy = routerSpy.navigateByUrl().resolve(true);
+    activatedRouteSpy.paramMap('sampleRegion');
 
     initComponent();
     
-    expect(navigateByUrlSpy).toHaveBeenCalledOnceWith('not-found');
+    expect(spy).toHaveBeenCalledOnceWith('not-found');
   })
 
   it(`should show the message "☢ No players ☢"
       when the service return an empty list`, ()=>{
 
-    const playersServiceRef = getTestBed().inject(PlayersService);
-    spyOn(playersServiceRef, 'getListBy').and.returnValue(of({ region: "", list: [] }));
-    const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-    (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+    playersSpy.getListBy().return(getEmptySampleResponse());
+    activatedRouteSpy.paramMap('sampleRegion');
     
     initComponent();
   
@@ -164,10 +163,8 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
 
   it(`should show "TOP 10 Players - ARGENTINA" when the url param is argentina`, ()=>{
     
-    const playerServiceRef = getTestBed().inject(PlayersService);
-    spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfSamplePlayers()));
-    const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-    (<any>activatedRouteRef).paramMap = of({ get(){ return 'argentina' }})
+    playersSpy.getListBy().return(getAListOfSamplePlayers());
+    activatedRouteSpy.paramMap('argentina');
 
     initComponent();
 
@@ -179,10 +176,8 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
       when the word "USA" is typped in the input filter box
       and there is not other row with the word "USA"`, ()=>{
 
-      const playerServiceRef = getTestBed().inject(PlayersService);
-      spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfPlayersWhereOneOfThemIsFromUSA()))
-      const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-      (<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+      playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsFromUSA());
+      activatedRouteSpy.paramMap('sampleRegion');
       
       initComponent();
 
