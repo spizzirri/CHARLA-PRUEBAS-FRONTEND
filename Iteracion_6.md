@@ -1,5 +1,15 @@
 # Iteración 6
 
+## Dandole un toque de GHERKIN
+
+### ¿Con que problemas no fuimos encontrando en la iteración 5?.
+
+Si bien ya estabamos bastante satisfechos sobre como estaban quedando nuestras pruebas, ya que eran bastante legibles para cualquiera que entrara sin conocer demasiado de las tecnologias, nos pasaba que cuando habian algunas pocas interacciones con el DOM ya se no hacia muy largo el test y uno podia llegar a perderse un poco.
+
+### ¿Como reaccionamos?
+
+Charlando con colegas, vimos una oportunidad de experimentar encapsulando las acciones en pasos, como si fuera gherkin.
+Asi fue como empezamos a probar nuestra clase Step.
 
 ### Step
 
