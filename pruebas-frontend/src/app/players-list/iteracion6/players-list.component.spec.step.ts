@@ -2,9 +2,9 @@ import { ActivatedRouteSpy } from "src/app/testing/ActivatedRouteSpy";
 import { PlayersSpy } from "src/app/testing/PlayersSpy";
 import { RouterSpy } from "src/app/testing/RouterSpy";
 import { ViewObject } from "src/app/testing/ViewObject";
-import { getAListOfPlayersWhereOneOfThemIsFromUSA, getEmptySampleResponse, getSampleError } from "../iteracion6/players-list-iteracion-6.component.spec.helper";
-import { getAListOfSamplePlayers } from "../iteracion6/players-list-iteracion-6.component.spec.helper";
-import { getAListOfPlayersWhereOneOfThemIsCalledAlanPichot } from "../iteracion6/players-list-iteracion-6.component.spec.helper";
+import { getAListOfPlayersWhereOneOfThemIsFromUSA, getEmptySampleResponse, getSampleError } from "./players-list.component.spec.helper";
+import { getAListOfSamplePlayers } from "./players-list.component.spec.helper";
+import { getAListOfPlayersWhereOneOfThemIsCalledAlanPichot } from "./players-list.component.spec.helper";
 import { PlayersListComponent } from "../players-list.component";
 
 export class Step{

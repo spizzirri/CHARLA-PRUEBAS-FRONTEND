@@ -68,7 +68,6 @@ describe('[Iteracion 4] - PlayersListComponent', () => {
 
         expect(rowsAfter.length).toBe(1);
         expect(AlanRowsAfter.length).toBe(1);
-
     })
 
     it(`shouldn't show the player called "Pichot, Alan"

@@ -1,4 +1,4 @@
-# Iteración 3
+# Iteración 4
 
 ## Esto es muy engorroso de escribir, demasiado verboso.
 
@@ -46,4 +46,62 @@ export class ViewObject {
   }
 ```
 
-### Codigo Ejemplo
+### Codigo Ejemplo - 1
+
+```js
+it(`should show just the players from "USA"
+      when the word "USA" is typped in the input filter box
+      and there is not other row with the word "USA"`, ()=>{
+
+      const playerServiceRef = getTestBed().inject(PlayersService);
+      spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfPlayersWhereOneOfThemIsFromUSA()))
+      const activatedRouteRef = getTestBed().inject(ActivatedRoute);
+      //(<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+      activatedRouteRef.paramMap = of({ get(){ return 'sampleRegion' }})
+
+      initComponent();
+
+      const filterValue = "USA";
+      const rowsBefore = viewObject.getElements('tr');
+      const USARowsBefore = viewObject.getElementsByText('tr', filterValue)
+
+      expect(rowsBefore.length).toBe(4);
+      expect(USARowsBefore.length).toBe(1);
+
+      viewObject.setText('.filter-container input#filter', filterValue);
+      viewObject.updateView();
+
+      const rowsAfter = viewObject.getElements('tr');
+      const USARowsAfter = viewObject.getElementsByText('tr', filterValue)
+
+      expect(rowsAfter.length).toBe(1);
+      expect(USARowsAfter.length).toBe(1);
+    })
+```
+
+### Codigo Ejemplo - 2
+
+```js
+    it(`should show the message "☢ No players ☢"
+        when all players are deleted`, ()=>{
+     
+      const playerServiceRef = getTestBed().inject(PlayersService);
+      spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfSamplePlayers()))
+      const activatedRouteRef = getTestBed().inject(ActivatedRoute);
+      //(<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
+      activatedRouteRef.paramMap = of({ get(){ return 'sampleRegion' }})
+
+      initComponent();
+
+      while(viewObject.isThereA('tr')){
+        viewObject.clickOnElement('tr td button')
+        viewObject.updateView();
+      }
+
+      const rowsAfterDeletingElems = viewObject.getElements('tr');
+      expect(rowsAfterDeletingElems).toHaveSize(0);
+
+      const messageText = viewObject.getText('p');
+      expect(messageText).toBe('☢ No players ☢');
+    })
+```
