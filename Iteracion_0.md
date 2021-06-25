@@ -57,15 +57,18 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  /*
-    Prueba de ejemplo
-  */
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  // Segundo beforeEach, se crea un instancia del componente a probar y se renderiza el DOM
+  beforeEach(() => {
+    fixture = TestBed.createComponent(PlayersListComponent);
+    component = fixture.componentInstance;
+    // Se renderiza / actualiza el DOM 
+    // Cuando se ejecuta por primera vez se lanza el evento onInit de los componentes.
+    fixture.detectChanges();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
   ...................  
 });
 ```
