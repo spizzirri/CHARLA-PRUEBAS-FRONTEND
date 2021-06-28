@@ -36,16 +36,6 @@ import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
 
-  /*  
-    Este beforeEach tiene la responsabilidad de
-    preparar el entorno para crear luego una instancia
-    del componente.
-
-    Aquí es donde se debe declarar que elementos van a ser
-    necesarios para correr las pruebas, como ser:
-    componente, pipes, directivas, servicios, modulos, etc. 
-  */
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -57,12 +47,9 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  // Segundo beforeEach, se crea un instancia del componente a probar y se renderiza el DOM
   beforeEach(() => {
     fixture = TestBed.createComponent(PlayersListComponent);
     component = fixture.componentInstance;
-    // Se renderiza / actualiza el DOM 
-    // Cuando se ejecuta por primera vez se lanza el evento onInit de los componentes.
     fixture.detectChanges();
   });
 
