@@ -9,17 +9,10 @@ it(`should show just the players from "USA"
 
     const filterValue = "USA";
 
-    // No tenemos bien resuelto este mock.
-    // Debemos setear nuevamente un valor de retorno
-    // E invocar nuevamente al ngOnInit. 
     const activatedRouteSpy = getTestBed().inject(ActivatedRoute);
-    (activatedRouteSpy as any).paramMap = of({ 
-                                            get(param:string){ 
+    (activatedRouteSpy as any).paramMap = of({ get(param:string){ 
                                                 return param ==="region"? 
-                                                        'wrd': 
-                                                        new Error("[ActivatedRoute] Wrong param") } 
-                                            })
-    
+                                                        'wrd': new Error("Wrong param")}})
     component.ngOnInit();
     fixture.detectChanges();
 
