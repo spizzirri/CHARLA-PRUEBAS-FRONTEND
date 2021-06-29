@@ -76,6 +76,8 @@ it(`should show just the players from "USA"
     })
 ```
 
+### Codigo Ejemplo 2
+
 ```js
     it(`should show the message "☢ No players ☢"
         when all players are deleted`, ()=>{
