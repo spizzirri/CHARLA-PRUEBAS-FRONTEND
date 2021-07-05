@@ -142,7 +142,7 @@ Tambien teniamos pruebas como estas, que para no usar el mock glabal y hacerlo m
 
 ```js
   it(`should show the message "☢ No players ☢"
-      when the service return an empty list`, ()=>{
+      when the service returns an empty list`, ()=>{
 
     // Aqui se pide una referencia al servicio y luego se lo setea el mock
     const playersServiceRef = getTestBed().inject(PlayersService);
@@ -163,8 +163,8 @@ Al momento de hacer esta prueba nos encontramos con otro problema, el servicio q
 
 ```js
 it(`should show just the players from "USA"
-      when the word "USA" is typped in the input filter box
-      and there is not other row with the word "USA"`, ()=>{
+      when there is a list of sample players around the world 
+      and the word "USA" is typped in the input filter box`, ()=>{
 
     const filterValue = "USA";
 

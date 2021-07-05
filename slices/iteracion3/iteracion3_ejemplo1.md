@@ -4,13 +4,12 @@ marp: true
 
 ```js
 it(`should show just the players from "USA"
-      when the word "USA" is typped in the input filter box
-      and there is not other row with the word "USA"`, ()=>{
+      when there is a list of sample players around the world 
+      and the word "USA" is typped in the input filter box`, ()=>{
 
       const playerServiceRef = getTestBed().inject(PlayersService);
       spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfPlayersWhereOneOfThemIsFromUSA()))
       const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-      //(<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }});
       activatedRouteRef.paramMap = of({ get(){ return 'sampleRegion' }});
 
       initComponent();

@@ -9,7 +9,6 @@ marp: true
       const playerServiceRef = getTestBed().inject(PlayersService);
       spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfSamplePlayers()))
       const activatedRouteRef = getTestBed().inject(ActivatedRoute);
-      //(<any>activatedRouteRef).paramMap = of({ get(){ return 'sampleRegion' }})
       activatedRouteRef.paramMap = of({ get(){ return 'sampleRegion' }})
 
       initComponent();

@@ -202,7 +202,7 @@ describe('[Iteracion 1] - PlayersListComponent', () => {
   })
 
   it(`should redirect to "not-found"  
-       when the service return an error`, ()=>{
+       when the service returns an error`, ()=>{
 
     const activatedRouteSpy = getTestBed().inject(ActivatedRoute);
         (activatedRouteSpy as any).paramMap = of({ 
@@ -221,7 +221,7 @@ describe('[Iteracion 1] - PlayersListComponent', () => {
   })
 
   it(`should show the message "☢ No players ☢"
-      when the service return an empty list`, ()=>{
+      when the service returns an empty list`, ()=>{
 
     const playersServiceRef = getTestBed().inject(PlayersService);
     spyOn(playersServiceRef, 'getListBy').and.returnValue(of({ region: "", list: [] }));
@@ -239,8 +239,8 @@ describe('[Iteracion 1] - PlayersListComponent', () => {
   })
 
   it(`should show just the players from "USA"
-      when the word "USA" is typped in the input filter box
-      and there is not other row with the word "USA"`, ()=>{
+       when there is a list of sample players around the world 
+       and the word "USA" is typped in the input filter box`, ()=>{
 
         const filterValue = "USA";
 

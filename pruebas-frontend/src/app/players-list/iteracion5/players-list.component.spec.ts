@@ -138,7 +138,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
   })
 
   it(`should redirect to "not-found"  
-       when the service return an error`, ()=>{
+       when the service returns an error`, ()=>{
 
     playersSpy.getListBy().throw(getSampleError())
     const spy = routerSpy.navigateByUrl().resolve(true);
@@ -150,7 +150,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
   })
 
   it(`should show the message "☢ No players ☢"
-      when the service return an empty list`, ()=>{
+      when the service returns an empty list`, ()=>{
 
     playersSpy.getListBy().return(getEmptySampleResponse());
     activatedRouteSpy.paramMap('sampleRegion');
@@ -173,8 +173,8 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
   })
 
   it(`should show just the players from "USA"
-      when the word "USA" is typped in the input filter box
-      and there is not other row with the word "USA"`, ()=>{
+      when there is a list of sample players around the world 
+      and the word "USA" is typped in the input filter box`, ()=>{
 
       playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsFromUSA());
       activatedRouteSpy.paramMap('sampleRegion');
