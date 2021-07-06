@@ -10,7 +10,13 @@ export class ActivatedRouteSpy{
         this._activatedRoute = getTestBed().inject(ActivatedRoute);
     }
 
-    paramMap(param:string){
-        (<any>this._activatedRoute).paramMap = of({ get(){ return param }})
+    paramMap(){
+        const service = this._activatedRoute;
+        return {
+            return: function (param:string){
+                (<any>service).paramMap = of({ get(){ return param }})
+            }
+        }
+        
     }
 }

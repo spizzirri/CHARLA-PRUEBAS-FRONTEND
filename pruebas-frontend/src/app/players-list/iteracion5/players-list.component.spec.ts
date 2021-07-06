@@ -61,7 +61,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
        and there is not other row with the word "Alan"`, ()=>{
 
         playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsCalledAlanPichot());
-        activatedRouteSpy.paramMap('sampleRegion');
+        activatedRouteSpy.paramMap().return('sampleRegion');
 
         initComponent();
         const rowsBefore = viewObject.getElements('tr');
@@ -85,7 +85,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
         after the delete button is clicked`, ()=>{
 
         playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsCalledAlanPichot());
-        activatedRouteSpy.paramMap('sampleRegion');
+        activatedRouteSpy.paramMap().return('sampleRegion');
 
         initComponent();
 
@@ -109,7 +109,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
         when all players are deleted`, ()=>{
      
       playersSpy.getListBy().return(getAListOfSamplePlayers());
-      activatedRouteSpy.paramMap('sampleRegion');
+      activatedRouteSpy.paramMap().return('sampleRegion');
 
       initComponent();
 
@@ -129,7 +129,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
       when the url para is world`, ()=>{
 
     playersSpy.getListBy().return(getAListOfSamplePlayers());
-    activatedRouteSpy.paramMap('world');
+    activatedRouteSpy.paramMap().return('world');
 
     initComponent();
 
@@ -142,7 +142,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
 
     playersSpy.getListBy().throw(getSampleError())
     const spy = routerSpy.navigateByUrl().resolve(true);
-    activatedRouteSpy.paramMap('sampleRegion');
+    activatedRouteSpy.paramMap().return('sampleRegion');
 
     initComponent();
     
@@ -153,7 +153,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
       when the service returns an empty list`, ()=>{
 
     playersSpy.getListBy().return(getEmptySampleResponse());
-    activatedRouteSpy.paramMap('sampleRegion');
+    activatedRouteSpy.paramMap().return('sampleRegion');
     
     initComponent();
   
@@ -164,7 +164,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
   it(`should show "TOP 10 Players - ARGENTINA" when the url param is argentina`, ()=>{
     
     playersSpy.getListBy().return(getAListOfSamplePlayers());
-    activatedRouteSpy.paramMap('argentina');
+    activatedRouteSpy.paramMap().return('argentina');
 
     initComponent();
 
@@ -177,7 +177,7 @@ describe('[Iteracion 5] - PlayersListComponent', () => {
       and the word "USA" is typped in the input filter box`, ()=>{
 
       playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsFromUSA());
-      activatedRouteSpy.paramMap('sampleRegion');
+      activatedRouteSpy.paramMap().return('sampleRegion');
       
       initComponent();
 

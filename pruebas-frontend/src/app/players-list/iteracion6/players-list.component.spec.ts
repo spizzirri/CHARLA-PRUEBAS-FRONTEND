@@ -61,7 +61,7 @@ describe('[Iteracion 6] - PlayersListComponent', () => {
         step.givenTheComponentIsLoadedWithSamplePlayers();
         step.whenAllOfThePlayersAreDeleted();
         step.thenTheListIsEmpty();
-        step.thenThereIsMessageThatSaysNoPlayers();
+        step.thenThereIsAMessageThatSaysNoPlayers();
     })
 
   it(`should show "TOP 10 Players - WORLD" 
@@ -88,7 +88,7 @@ describe('[Iteracion 6] - PlayersListComponent', () => {
       const step = new Step();
       
       step.givenTheComponentIsLoadedWithAnEmptyList();
-      step.thenThereIsMessageThatSaysNoPlayers();
+      step.thenThereIsAMessageThatSaysNoPlayers();
   })
 
   it(`should show "TOP 10 Players - ARGENTINA" when the url param is argentina`, ()=>{

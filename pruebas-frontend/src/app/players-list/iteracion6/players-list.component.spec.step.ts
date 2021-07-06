@@ -31,7 +31,7 @@ export class Step{
     givenTheComponentIsLoadedWithThreeSamplePlayersWhereOneOfThemIsCalledAlanPichot(){
 
         this.playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsCalledAlanPichot());
-        this.activatedRouteSpy.paramMap('sampleRegion');
+        this.activatedRouteSpy.paramMap().return('sampleRegion');
 
         this.initComponent();
 
@@ -44,7 +44,7 @@ export class Step{
 
     givenTheComponentIsLoadedWithFourSamplePlayersWhereOneOfThemIsFromUSA(){
         this.playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsFromUSA());
-        this.activatedRouteSpy.paramMap('sampleRegion');
+        this.activatedRouteSpy.paramMap().return('sampleRegion');
       
         this.initComponent();
 
@@ -57,28 +57,28 @@ export class Step{
 
     givenTheComponentIsLoadedWithSamplePlayers(){
         this.playersSpy.getListBy().return(getAListOfSamplePlayers());
-        this.activatedRouteSpy.paramMap('sampleRegion');
+        this.activatedRouteSpy.paramMap().return('sampleRegion');
 
         this.initComponent();
     }
 
     givenTheComponentIsLoadedWithAnEmptyList(){
         this.playersSpy.getListBy().return(getEmptySampleResponse());
-        this.activatedRouteSpy.paramMap('sampleRegion');
+        this.activatedRouteSpy.paramMap().return('sampleRegion');
     
         this.initComponent();
     }
 
     givenTheComponentIsLoadedWithSamplePlayersAndTheRegionIsWorld(){
         this.playersSpy.getListBy().return(getAListOfSamplePlayers());
-        this.activatedRouteSpy.paramMap('world');
+        this.activatedRouteSpy.paramMap().return('world');
     
         this.initComponent();
     }
 
     givenTheComponentIsLoadedWithSamplePlayersAndTheRegionIsArgentina(){
         this.playersSpy.getListBy().return(getAListOfSamplePlayers());
-        this.activatedRouteSpy.paramMap('argentina');
+        this.activatedRouteSpy.paramMap().return('argentina');
     
         this.initComponent();
     }
@@ -87,7 +87,7 @@ export class Step{
     givenTheComponentGetsASampleErrorRetrievingPlayers():{ navigateSpy: jasmine.Spy<any>}{
         this.playersSpy.getListBy().throw(getSampleError())
         const navigateSpy = this.routerSpy.navigateByUrl().resolve(true);
-        this.activatedRouteSpy.paramMap('sampleRegion');
+        this.activatedRouteSpy.paramMap().return('sampleRegion');
     
         this.initComponent();
 
@@ -139,7 +139,7 @@ export class Step{
         expect(rowsAfterDeletingElems).toHaveSize(0);  
     }
 
-    thenThereIsMessageThatSaysNoPlayers(){
+    thenThereIsAMessageThatSaysNoPlayers(){
         const messageText = this.viewObject.getText('p');
         expect(messageText).toBe('☢ No players ☢');
     }
