@@ -7,7 +7,7 @@ marp: true
         when all players are deleted`, ()=>{
      
       playersSpy.getListBy().return(getAListOfSamplePlayers());
-      activatedRouteSpy.paramMap('sampleRegion');
+      activatedRouteSpy.paramMap().return('sampleRegion');
 
       initComponent();
 

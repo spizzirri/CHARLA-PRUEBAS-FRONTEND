@@ -3,12 +3,12 @@ marp: true
 ---
 
 ```js
-it(`sshould show just the players from "USA"
+it(`should show just the players from "USA"
       when there is a list of sample players around the world 
       and the word "USA" is typped in the input filter box`, ()=>{
 
       playersSpy.getListBy().return(getAListOfPlayersWhereOneOfThemIsFromUSA());
-      activatedRouteSpy.paramMap('sampleRegion');
+      activatedRouteSpy.paramMap().return('sampleRegion');
       
       initComponent();
 

@@ -8,7 +8,8 @@ it(`should show just the players from "USA"
       and the word "USA" is typped in the input filter box`, ()=>{
 
       const playerServiceRef = getTestBed().inject(PlayersService);
-      spyOn(playerServiceRef, 'getListBy').and.returnValue(of(getAListOfPlayersWhereOneOfThemIsFromUSA()))
+      spyOn(playerServiceRef, 'getListBy')
+        .and.returnValue(of(getAListOfPlayersWhereOneOfThemIsFromUSA()))
       const activatedRouteRef = getTestBed().inject(ActivatedRoute);
       activatedRouteRef.paramMap = of({ get(){ return 'sampleRegion' }})
 
